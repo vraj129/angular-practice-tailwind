@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -19,6 +20,9 @@ import { HeaderComponent } from './header/header.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
   ],
   providers: [
     {

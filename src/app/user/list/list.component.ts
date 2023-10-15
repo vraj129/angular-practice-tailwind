@@ -17,7 +17,6 @@ export class ListComponent implements OnInit {
     this.userService.getAllUser().subscribe(
       (val) => {
         this.userModel = val;
-        console.log(this.userModel[0].name);
         this.isLoading = false;
       },
       (err) => {
@@ -25,5 +24,9 @@ export class ListComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  transform(value: string): boolean {
+    return value.includes('gmail');
   }
 }

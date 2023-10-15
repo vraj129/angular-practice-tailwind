@@ -2,6 +2,6 @@
   <mat-toolbar color="primary">
     <span>My Application</span>
     <span class="example-spacer"></span>
-    <button mat-raised-button color="accent">Accent</button>
+    <button *ngIf="isButtonVisible" mat-raised-button color="accent" routerLink="/user/add">Add user</button>
   </mat-toolbar>
 </p>

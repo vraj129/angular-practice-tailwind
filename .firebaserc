@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-demo-1b96f": {
+      "hosting": {
+        "angular-assignment-2": [
+          "angular-demo-1b96f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-demo-1b96f"
+  }
+}

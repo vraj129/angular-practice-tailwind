@@ -1,1 +1,54 @@
-<p>view works!</p>
+<!-- Loading section -->
+
+<section *ngIf="viewState.value === 0">
+  <ngx-skeleton-loader count="20" [theme]="{
+    'border-radius': '5px',
+    height: '250px',
+    'width': '350px',
+    margin:'15px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</section>
+
+
+<!-- Complete section -->
+<section *ngIf="viewState.value === 1">
+
+
+
+
+  <div class="flex justify-center mt-4">
+    <p class="text-3xl font-semibold text-gray-800 subpixel-antialiased">Posts</p>
+    <div>
+      <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-10"
+        routerLink="/post/add-post/{{userId}}">
+        Add post
+      </button>
+    </div>
+  </div>
+
+
+  <div *ngIf="userPosts?.length === 0" class="max-w-md mx-auto mt-8 bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-2xl font-semibold text-center mb-4">Oops! This user does not have any posts</h2>
+    <p class="text-gray-600 text-center">Try adding some</p>
+  </div>
+
+
+  <div class="container px-5  mx-auto">
+    <div class="flex flex-wrap">
+      <div *ngFor="let card of userPosts" class="bg-white rounded-lg shadow-lg p-6 max-w-xs mx-2 mb-4">
+        <h2 class="text-xl font-semibold mb-2">{{ card.title }}</h2>
+        <p class="text-gray-600">{{ card.body }}</p>
+        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded focus:outline-none"
+          routerLink="/post/view-post/{{card.id}}">View
+          posts</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Error section -->
+<section *ngIf="viewState.value === 2">
+  <app-error></app-error>
+</section>
