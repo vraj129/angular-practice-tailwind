@@ -14,8 +14,11 @@
   <div class="flex flex-col justify-start items-center h-screen">
     <!-- First Card -->
     <div class="max-w-xs bg-white rounded-lg shadow-lg p-6 m-4">
-      <h2 class="text-xl font-semibold mb-2">Card Title</h2>
-      <p class="text-gray-600">Card Body text goes here.</p>
+      <h2 class="text-xl font-semibold mb-2">{{postDetail?.title}}</h2>
+      <p class="text-gray-600" [ngClass]="{'font-bold': isBold, 'font-normal': !isBold}">{{postDetail?.body}}</p>
+      <button (click)="toggleBoldness()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+        Toggle Boldness
+      </button>
     </div>
 
     <!-- Second Card -->
@@ -30,8 +33,11 @@
       <ul *ngIf="postComments?.length !== 0">
         <li class="mb-2 border-t border-gray-300"></li>
         <li class="mb-2" *ngFor="let comment of postComments">
-          <span class="font-semibold">{{comment.name}} : </span>
-          <span class="text-gray-600">{{comment.body}}</span>
+          <div *ngIf="!comment.body.toLowerCase().includes('trash')">
+            <span class="font-semibold">{{comment.name}} : </span>
+            <span class="text-gray-600">{{comment.body}}</span>
+          </div>
+
         </li>
         <li class="mb-2 border-t border-gray-300"></li>
       </ul>

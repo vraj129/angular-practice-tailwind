@@ -10,7 +10,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
 import { ToastrModule } from 'ngx-toastr';
-
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [

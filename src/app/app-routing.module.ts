@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ErrorComponent } from './shared/error/error.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./post/post.module').then((mod) => mod.PostModule),
   },
+  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({

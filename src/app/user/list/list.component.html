@@ -52,7 +52,10 @@
                 <button
                   class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded focus:outline-none">Edit</button>
               </div>
+
             </div>
+            <app-toggle [toggleState]="user.status ==='active'" [userId]="user.id.toString()"
+              (userChange)="statusChangeListener($event)"></app-toggle>
           </div>
 
 

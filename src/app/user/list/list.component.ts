@@ -29,4 +29,12 @@ export class ListComponent implements OnInit {
   transform(value: string): boolean {
     return value.includes('gmail');
   }
+
+  statusChangeListener(value: any) {
+    var userId = value.userId;
+    var status = value.status;
+
+    const index = this.userModel.findIndex((e) => e.id.toString() === userId);
+    this.userModel[index].status = status;
+  }
 }

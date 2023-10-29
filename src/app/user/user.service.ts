@@ -19,4 +19,11 @@ export class UserService {
   addUser(userModel: ReqUserModel): Observable<any> {
     return this.http.post<any>(USER_API, userModel);
   }
+
+  updateUserStatus(status: boolean, userId: string): Observable<any> {
+    var sts = status ? 'active' : 'inactive';
+    return this.http.put<any>(`${USER_API}/${userId}`, {
+      status: sts,
+    });
+  }
 }

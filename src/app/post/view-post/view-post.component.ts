@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { ComponentUiState, State } from 'src/app/shared/base_component_state';
 import { PostService } from '../post.service';
 import { PostComments } from '../model/res_post_comments';
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAddComment } from '../model/req_post_comment';
 import { ToastrService } from 'ngx-toastr';
+import { PostDetail } from '../model/res_post_detail';
 
 @Component({
   selector: 'app-view-post',
@@ -16,7 +17,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ViewPostComponent implements OnInit, OnDestroy {
   postComments?: PostComments;
+  postDetail?: PostDetail;
   postId: string = '';
+  isBold: boolean = false;
   viewPostState = new BehaviorSubject<State>(new ViewPostState().loading());
 
   isDialogOpen: boolean = false;
@@ -39,9 +42,13 @@ export class ViewPostComponent implements OnInit, OnDestroy {
       const id = params.get('id');
       if (id) {
         this.postId = id;
-        this.postService.getPostComments(id).subscribe(
-          (val) => {
-            this.postComments = val;
+        forkJoin([
+          this.postService.getPostDetails(id),
+          this.postService.getPostComments(id),
+        ]).subscribe(
+          ([postDetails, postComments]) => {
+            this.postComments = postComments;
+            this.postDetail = postDetails;
             this.viewPostState.next(new ViewPostState().completed());
           },
           (err) => {
@@ -77,11 +84,13 @@ export class ViewPostComponent implements OnInit, OnDestroy {
         email: this.feedbackForm.get('email')?.value,
         body: this.feedbackForm.get('body')?.value,
       };
+
       this.postService.addUserPostComment(this.postId, commentModel).subscribe(
         (val) => {
           this.toastr.success('Comment added succesfully');
           this.initCall();
           this.closeDialog();
+          this.feedbackForm.reset();
           return;
         },
         (err) => {
@@ -92,6 +101,10 @@ export class ViewPostComponent implements OnInit, OnDestroy {
     } else {
       console.log('Form is incomplete or invalid.');
     }
+  }
+
+  toggleBoldness() {
+    this.isBold = !this.isBold;
   }
 }
 

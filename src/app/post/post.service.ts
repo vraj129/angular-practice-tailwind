@@ -6,6 +6,7 @@ import { UserPosts } from './model/res_user_posts';
 import { PostComments } from './model/res_post_comments';
 import { UserAddComment } from './model/req_post_comment';
 import { ReqUserPost } from './model/req_user_post';
+import { PostDetail } from './model/res_post_detail';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,10 @@ export class PostService {
 
   getPostComments(id: string): Observable<PostComments> {
     return this.http.get<PostComments>(USER_POSTS + '/' + id + '/comments');
+  }
+
+  getPostDetails(id: string): Observable<PostDetail> {
+    return this.http.get<PostDetail>(USER_POSTS + '/' + id);
   }
 
   addUserPostComment(
